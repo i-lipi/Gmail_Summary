@@ -1,54 +1,38 @@
-# Gmailsum Crew
+Gmail Summary & Prioritization AI
 
-Welcome to the Gmailsum Crew project, powered by [crewAI](https://crewai.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+This project is an AI-powered system that reads, classifies, and prioritizes unread emails from a Gmail inbox using the Gmail API, CrewAI framework, and intelligent agents. It provides a clean web dashboard where users can view their emails sorted by priority such as High, Medium, Low, Personal, and Uncategorized.
 
-## Installation
 
-Ensure you have Python >=3.10 <3.13 installed on your system. This project uses [UV](https://docs.astral.sh/uv/) for dependency management and package handling, offering a seamless setup and execution experience.
+Features:
+- OAuth2 Integration with Gmail API (via credentials.json & token.json)
+- Secure email fetching using Google’s gmail.readonly scope
+- Agent-based architecture powered by CrewAI:
+  * email_reader: Fetches unread emails with sender, subject, snippet, and direct Gmail links
+  * email_categorizer: Classifies emails using content-based prioritization rules
+-Customizable HTML Dashboard: Displays email summaries by category in a styled UI
+-Modular design with agent and task configuration defined in YAML
+-Security-conscious: .gitignore excludes secret files like token.json, .env, and credentials.json
+[You can generate your own through "https://console.cloud.google.com/apis/library/gmail.googleapis.com"]
 
-First, if you haven't already, install uv:
+How It Works
+-Authentication: Run gmail_auth.py to authenticate via browser and generate token.json.
+-Fetch Emails: The fetch_unread_emails function retrieves unread inbox messages using Gmail API.
+-Categorize: Emails are classified into categories using LLM-based logic and keyword rules.
+-Display: The categorized emails are rendered in a responsive dashboard (dashboard.html).
 
-```bash
-pip install uv
-```
+Example Output:
 
-Next, navigate to your project directory and install the dependencies:
+High Priority: Emails containing words like “urgent”, “interview”, “critical”
+Medium Priority: Managerial instructions or important updates
+Low Priority: Newsletters, auto-replies, and subscriptions
+Personal: Emails from known friends/family
+Uncategorized: Miscellaneous or ambiguous messages
 
-(Optional) Lock the dependencies and install them by using the CLI command:
-```bash
-crewai install
-```
-### Customizing
+Technologies Used:
 
-**Add your `OPENAI_API_KEY` into the `.env` file**
-
-- Modify `src/gmailsum/config/agents.yaml` to define your agents
-- Modify `src/gmailsum/config/tasks.yaml` to define your tasks
-- Modify `src/gmailsum/crew.py` to add your own logic, tools and specific args
-- Modify `src/gmailsum/main.py` to add custom inputs for your agents and tasks
-
-## Running the Project
-
-To kickstart your crew of AI agents and begin task execution, run this from the root folder of your project:
-
-```bash
-$ crewai run
-```
-
-This command initializes the gmailsum Crew, assembling the agents and assigning them tasks as defined in your configuration.
-
-This example, unmodified, will run the create a `report.md` file with the output of a research on LLMs in the root folder.
-
-## Understanding Your Crew
-
-The gmailsum Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
-
-## Support
-
-For support, questions, or feedback regarding the Gmailsum Crew or crewAI.
-- Visit our [documentation](https://docs.crewai.com)
-- Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)
-- [Join our Discord](https://discord.com/invite/X4JWnZnxPb)
-- [Chat with our docs](https://chatg.pt/DWjSBZn)
-
-Let's create wonders together with the power and simplicity of crewAI.
+Python (Gmail API, OAuth2)
+CrewAI (Agent orchestration and task pipelines)
+HTML/CSS for dashboard UI
+Google API Client
+Jinja2 for templating
+Markdown reporting (report.md)
