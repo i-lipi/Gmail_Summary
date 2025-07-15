@@ -1,0 +1,11 @@
+.env
+__pycache__/
+.DS_Store
+*.json
+!.project_config.json  # (if any non-secret JSON should still be committed)
+.env
+__pycache__/
+
+#Ignore specific secret files
+src/gmailsum/tools/credentials.json
+src/gmailsum/tools/token.json

@@ -1,0 +1,33 @@
+fetch_emails_task:
+  description: >
+      Retrieve unread emails from 'lipi.inampudi2001@gmail.com' Gmail inbox. Extract details such as 
+      sender, subject, snippet, and a direct link to the email for further processing.
+  expected_output: >
+    - A structured list of unread emails with:
+        - Sender name & email
+        - Subject line
+        - Email snippet (preview)
+        - Direct Gmail link to the message
+  agent: email_reader
+
+categorize_emails_task:
+  description: >
+      Analyze the retrieved emails and classify them into one of four categories: 
+      High Priority, Medium Priority, Low Priority, or Personal. 
+      Use predefined rules such as:
+        - High Priority: Emails from CEO, HR, or containing keywords like "urgent", "ASAP", "immediate action", "critical","EOD", "interview"
+         and other relevant words..
+        - Medium Priority: Emails from managers or with actionable requests
+        - Low Priority: Newsletters, promotions, automated messages
+        - Personal: Emails from friends, family, or known contacts
+        - Uncategorized: Emails that do not fit into the above categories.
+  expected_output: >
+    Return a dictionary where the keys are categories (High Priority, Medium, Low, Personal, Uncategorized) 
+    and the values are lists of email objects containing:
+      - Sender
+      - Subject
+      - Snippet
+      - Direct Link to Email
+  agent: email_categorizer
+  dependencies:
+    - fetch_emails_task
